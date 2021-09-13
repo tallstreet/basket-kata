@@ -60,3 +60,8 @@ code {
   border-bottom: 4px double black;
   font-weight: 700;
 }
+
+.shoppingList,
+.savingsList {
+  padding: 0;
+}

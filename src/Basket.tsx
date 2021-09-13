@@ -9,12 +9,14 @@ function Savings({
       <div className="row">
         <div>Savings</div>
       </div>
-      {savings.map((saving, idx) => (
-        <div className="row" key={idx}>
-          <div className="couponName">{saving.description}</div>
-          <div className="couponSaving">{saving.saving}</div>
-        </div>
-      ))}
+      <ol className="savingsList">
+        {savings.map((saving, idx) => (
+          <li className="row" key={idx}>
+            <div className="couponName">{saving.description}</div>
+            <div className="couponSaving">{saving.saving}</div>
+          </li>
+        ))}
+      </ol>
       <div className="row savingsTotalRow">
         <div className="totalHeading">Total Savings</div>
         <div className="total" data-testid="savingsTotal">
@@ -38,17 +40,19 @@ export function Basket({
   return (
     <div className="basket">
       <h2>Basket</h2>
-      {lineItems.map((item, idx) => (
-        <div className="row" key={idx}>
-          <div className="name">
-            {item.name} {item.quantity}
-          </div>
-          <div className="price">{item.price}</div>
-          <button className="removeButton" onClick={() => onRemove(idx)}>
-            Remove
-          </button>
-        </div>
-      ))}
+      <ol className="shoppingList">
+        {lineItems.map((item, idx) => (
+          <li className="row" key={idx}>
+            <div className="name">
+              {item.name} {item.quantity}
+            </div>
+            <div className="price">{item.price}</div>
+            <button className="removeButton" onClick={() => onRemove(idx)}>
+              Remove
+            </button>
+          </li>
+        ))}
+      </ol>
       <div className="row subTotalRow">
         <div className="totalHeading">Sub-Total</div>
         <div data-testid="subtotal" className="total">
