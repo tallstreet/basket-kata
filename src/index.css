@@ -36,6 +36,16 @@ code {
 .price {
   flex-basis: 200px;
   text-align: right;
+  margin-right: 20px;
+}
+
+.removeButton {
+  flex-basis: 70px;
+}
+
+.total,
+.couponSaving {
+  margin-right: 90px;
 }
 
 .subTotalRow,
