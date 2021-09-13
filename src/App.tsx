@@ -1,24 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { Basket } from "./Basket";
+import { sum } from "./basketCalculator";
+import { COUPONS, ITEMS } from "./data";
+
+const EXAMPLE_BASKET = [
+  { itemId: "1", quantity: 1 },
+  { itemId: "1", quantity: 1 },
+  { itemId: "1", quantity: 1 },
+  { itemId: "2", quantity: 1 },
+  { itemId: "2", quantity: 1 },
+  { itemId: "3", quantity: 0.195 },
+];
 
 function App() {
+  const basketTotals = sum(ITEMS, EXAMPLE_BASKET, COUPONS);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Basket {...basketTotals} />
     </div>
   );
 }
