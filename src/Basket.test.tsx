@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 import { Basket } from "./Basket";
 import { sum } from "./basketCalculator";
 import { COUPONS, ITEMS } from "./data";
@@ -14,7 +14,9 @@ const EXAMPLE_BASKET = [
 const SUM = sum(ITEMS, EXAMPLE_BASKET, COUPONS);
 
 test("renders basket", async () => {
-  const { getByText, getByTestId, getAllByText } = render(<Basket {...SUM} />);
+  const { getByText, getByTestId, getAllByText } = render(
+    <Basket {...SUM} onRemove={jest.fn()} />
+  );
   expect(getAllByText("Beans")).toHaveLength(3);
   expect(getAllByText("Cola")).toHaveLength(2);
   expect(getAllByText(/Oranges/)).toHaveLength(1);
@@ -25,4 +27,11 @@ test("renders basket", async () => {
   expect(getAllByText("Cola 2 for £1")).toHaveLength(1);
   expect(getByTestId("savingsTotal")).toHaveTextContent("-0.90");
   expect(getByTestId("total")).toHaveTextContent("2.39");
+});
+
+test("clicking  remove button to triggers onRemove function", () => {
+  const remove = jest.fn();
+  const { getAllByText } = render(<Basket {...SUM} onRemove={remove} />);
+  fireEvent.click(getAllByText("Remove")[0]);
+  expect(remove).toHaveBeenCalledTimes(1);
 });

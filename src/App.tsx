@@ -15,6 +15,15 @@ function App() {
     [setBasket, basket]
   );
 
+  const onRemove = useCallback(
+    (idx: number) => {
+      const newBasket = [...basket];
+      newBasket.splice(idx, 1);
+      setBasket(newBasket);
+    },
+    [setBasket, basket]
+  );
+
   let basketTotals = useMemo(() => {
     return sum(ITEMS, basket, COUPONS);
   }, [basket]);
@@ -22,7 +31,7 @@ function App() {
   return (
     <div className="App">
       <Items items={ITEMS} onAdd={onAdd} />
-      <Basket {...basketTotals} />
+      <Basket {...basketTotals} onRemove={onRemove} />
     </div>
   );
 }

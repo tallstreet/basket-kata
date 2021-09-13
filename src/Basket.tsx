@@ -25,13 +25,16 @@ function Savings({
   );
 }
 
+type BasketProps = BasketTotal & { onRemove: (idx: number) => void };
+
 export function Basket({
   lineItems,
   subTotal,
   savings,
   savingsTotal,
   total,
-}: BasketTotal) {
+  onRemove,
+}: BasketProps) {
   return (
     <div className="basket">
       <h2>Basket</h2>
@@ -41,6 +44,9 @@ export function Basket({
             {item.name} {item.quantity}
           </div>
           <div className="price">{item.price}</div>
+          <button className="removeButton" onClick={() => onRemove(idx)}>
+            Remove
+          </button>
         </div>
       ))}
       <div className="row subTotalRow">
