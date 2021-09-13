@@ -63,6 +63,7 @@ export function sum(
           })
         );
         savingsTotal += coupon.saving * times;
+        quantityByItem[coupon.itemId] -= times * coupon.quantity;
       }
     }
   }

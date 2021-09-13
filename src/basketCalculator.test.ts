@@ -41,3 +41,42 @@ test("returns savings total and basket total", () => {
   expect(savingsTotal).toBe("-0.90");
   expect(total).toBe("2.39");
 });
+
+test("applies a coupons multiple times if it applies multiple times", () => {
+  const basket = [
+    { itemId: "2", quantity: 1 },
+    { itemId: "2", quantity: 1 },
+    { itemId: "2", quantity: 1 },
+    { itemId: "2", quantity: 1 },
+    { itemId: "2", quantity: 1 },
+    { itemId: "3", quantity: 0.195 },
+  ];
+  const { savings } = sum(ITEMS, basket, COUPONS);
+  expect(savings.length).toBe(2);
+  expect(savings[0].description).toBe("Cola 2 for £1");
+  expect(savings[0].saving).toBe("-0.40");
+  expect(savings[1].description).toBe("Cola 2 for £1");
+  expect(savings[1].saving).toBe("-0.40");
+});
+
+test("a given item cannot recieve multiple coupons", () => {
+  const basket = [
+    { itemId: "2", quantity: 1 },
+    { itemId: "2", quantity: 1 },
+    { itemId: "2", quantity: 1 },
+    { itemId: "2", quantity: 1 },
+    { itemId: "2", quantity: 1 },
+    { itemId: "3", quantity: 0.195 },
+  ];
+  const coupons = [
+    { itemId: "2", quantity: 3, saving: -0.6, description: "Cola 3 for £1.50" },
+    { itemId: "2", quantity: 2, saving: -0.4, description: "Cola 2 for £1" },
+  ];
+
+  const { savings } = sum(ITEMS, basket, coupons);
+  expect(savings.length).toBe(2);
+  expect(savings[0].description).toBe("Cola 3 for £1.50");
+  expect(savings[0].saving).toBe("-0.60");
+  expect(savings[1].description).toBe("Cola 2 for £1");
+  expect(savings[1].saving).toBe("-0.40");
+});
