@@ -1,4 +1,4 @@
-import { IBasket, ICoupon, ItemData } from "./data";
+import { IBasket, ItemData, ICoupon } from "./data";
 
 export interface BasketTotal {
   subTotal: string;
@@ -11,6 +11,8 @@ export interface BasketTotal {
     description: string;
     saving: string;
   }[];
+  savingsTotal: string;
+  total: string;
 }
 
 export function displayNum(num: number) {
@@ -39,6 +41,7 @@ export function sum(
   });
 
   const savings = [];
+  let savingsTotal = 0;
   if (coupons) {
     const quantityByItem = basket.reduce((acc, val) => {
       if (!acc[val.itemId]) {
@@ -59,6 +62,7 @@ export function sum(
             saving: displayNum(coupon.saving),
           })
         );
+        savingsTotal += coupon.saving * times;
       }
     }
   }
@@ -67,5 +71,7 @@ export function sum(
     subTotal: displayNum(subTotal),
     lineItems,
     savings,
+    savingsTotal: displayNum(savingsTotal),
+    total: displayNum(subTotal + savingsTotal),
   };
 }

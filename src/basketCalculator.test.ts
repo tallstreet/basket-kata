@@ -35,3 +35,9 @@ test("applies coupons savings", () => {
   expect(savings[1].description).toBe("Cola 2 for £1");
   expect(savings[1].saving).toBe("-0.40");
 });
+
+test("returns savings total and basket total", () => {
+  const { savingsTotal, total } = sum(ITEMS, EXAMPLE_BASKET, COUPONS);
+  expect(savingsTotal).toBe("-0.90");
+  expect(total).toBe("2.39");
+});
