@@ -12,6 +12,11 @@ code {
     monospace;
 }
 
+.items {
+  display: flex;
+  justify-content: space-around;
+}
+
 .row {
   display: flex;
   margin-top: 5px;
