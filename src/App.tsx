@@ -1,28 +1,13 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import "./App.css";
 import { Basket } from "./Basket";
 import { sum } from "./basketCalculator";
-import { COUPONS, IBasket, ItemId, ITEMS } from "./data";
+import { COUPONS, ITEMS } from "./data";
 import { Items } from "./Items";
+import { useBasket } from "./useBasket";
 
 function App() {
-  const [basket, setBasket] = useState<IBasket>([]);
-
-  const onAdd = useCallback(
-    (itemId: ItemId, quantity: number) => {
-      setBasket([...basket, { itemId: itemId, quantity }]);
-    },
-    [setBasket, basket]
-  );
-
-  const onRemove = useCallback(
-    (idx: number) => {
-      const newBasket = [...basket];
-      newBasket.splice(idx, 1);
-      setBasket(newBasket);
-    },
-    [setBasket, basket]
-  );
+  const { basket, onAdd, onRemove } = useBasket();
 
   let basketTotals = useMemo(() => {
     return sum(ITEMS, basket, COUPONS);
